@@ -2,7 +2,7 @@
 // Respond to transcoder added events
 export function transcoderUpdated(event: TranscoderUpdate): void {
   let bondingManager = BondingManager.bind(event.address, event.blockHash)
-  let roundsManager = RoundsManager.bind(Address.fromString("0x511bc4556d823ae99630ae8de28b9b80df90ea2e"), event.blockHash)
+  let roundsManager = RoundsManager.bind(Address.fromString("511bc4556d823ae99630ae8de28b9b80df90ea2e"), event.blockHash)
 
   let currentRound = roundsManager.currentRound()
   let transcoderHash = event.params.transcoder.toHex()
@@ -33,6 +33,5 @@ export function transcoderUpdated(event: TranscoderUpdate): void {
   
 
   // Apply store updates
-  let store = Store.bind(event.blockHash)
   store.set('Transcoder', transcoderHash, transcoder)
 }
