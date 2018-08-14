@@ -10,5 +10,5 @@ type Transcoder {
   registered: Boolean
   totalStake: BigInt
   lastRewardRound: BigInt
-  currentRound: BigInt
+  isActive: Boolean
 }
