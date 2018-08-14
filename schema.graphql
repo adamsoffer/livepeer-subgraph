@@ -1,0 +1,14 @@
+type Transcoder {
+  id: ID!
+  address: Bytes!
+  rewardCut: BigInt
+  feeShare: BigInt
+  pricePerSegment: BigInt
+  pendingRewardCut: BigInt
+  pendingFeeShare: BigInt
+  pendingPricePerSegment: BigInt
+  registered: Boolean
+  totalStake: BigInt
+  lastRewardRound: BigInt
+  currentRound: BigInt
+}
