@@ -1,5 +1,4 @@
-# Livepeer
-### Livepeer subgraph manifest for The Graph
+# Livepeer Subgraph
 
 The [Graph Node](https://github.com/graphprotocol/graph-node) repo contains instructions for running everything. Additionally see the [Getting Started Guide](https://github.com/graphprotocol/graph-node/blob/master/docs/getting-started.md) for a detailed walkthrough of how the pieces fit together.
 
