@@ -19,7 +19,7 @@ query {
     registered
     totalStake
     lastRewardRound
-    isActive
+    active
   }
 }
 ```

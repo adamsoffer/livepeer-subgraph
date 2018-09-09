@@ -1,0 +1,6 @@
+2018-08-25 10:44:04.795 EDT [37387] LOG:  listening on IPv6 address "::1", port 5432
+2018-08-25 10:44:04.795 EDT [37387] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2018-08-25 10:44:04.796 EDT [37387] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2018-08-25 10:44:04.815 EDT [37388] LOG:  database system was shut down at 2018-08-25 10:44:01 EDT
+2018-08-25 10:44:04.822 EDT [37387] LOG:  database system is ready to accept connections
+2018-08-25 10:44:35.132 EDT [37418] FATAL:  database "adchain-subgraph" does not exist

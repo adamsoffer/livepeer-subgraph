@@ -7,7 +7,7 @@ export function transcoderUpdated(event: TranscoderUpdate): void {
   let currentRound = roundsManager.currentRound()
   let transcoderHash = event.params.transcoder.toHex()
   let transcoderAddress = event.params.transcoder
-  let isActive = bondingManager.isActiveTranscoder(transcoderAddress, currentRound)
+  let active = bondingManager.isActiveTranscoder(transcoderAddress, currentRound)
   let registered = event.params.registered
   let transcoderInfo = bondingManager.getTranscoder(transcoderAddress)
   let lastRewardRound = transcoderInfo.value0
@@ -29,7 +29,7 @@ export function transcoderUpdated(event: TranscoderUpdate): void {
   transcoder.setU256('pendingPricePerSegment', pendingPricePerSegment)
   transcoder.setU256('totalStake', totalStake)
   transcoder.setU256('lastRewardRound', lastRewardRound)
-  transcoder.setBoolean('isActive', isActive)
+  transcoder.setBoolean('active', active)
   transcoder.setBoolean('registered', registered)
   
   // Apply store updates
