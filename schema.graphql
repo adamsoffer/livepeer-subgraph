@@ -1,4 +1,4 @@
-type Transcoder {
+type Transcoder @entity {
   id: ID!
   address: Bytes!
   rewardCut: BigInt
@@ -11,4 +11,5 @@ type Transcoder {
   totalStake: BigInt
   lastRewardRound: BigInt
   active: Boolean
+  status: Bytes
 }

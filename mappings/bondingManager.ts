@@ -1,4 +1,3 @@
-
 // Respond to transcoder added events
 export function transcoderUpdated(event: TranscoderUpdate): void {
   let bondingManager = BondingManager.bind(event.address, event.blockHash)
@@ -8,16 +7,16 @@ export function transcoderUpdated(event: TranscoderUpdate): void {
   let transcoderHash = event.params.transcoder.toHex()
   let transcoderAddress = event.params.transcoder
   let active = bondingManager.isActiveTranscoder(transcoderAddress, currentRound)
-  let registered = event.params.registered
   let transcoderInfo = bondingManager.getTranscoder(transcoderAddress)
+  let totalStake = bondingManager.transcoderTotalStake(transcoderAddress)
+  let registered = event.params.registered
+  let pendingRewardCut = event.params.pendingRewardCut
+  let pendingFeeShare = event.params.pendingFeeShare
+  let pendingPricePerSegment = event.params.pendingPricePerSegment
   let lastRewardRound = transcoderInfo.value0
   let rewardCut = transcoderInfo.value1
   let feeShare = transcoderInfo.value2
   let pricePerSegment = transcoderInfo.value3
-  let pendingRewardCut = transcoderInfo.value4
-  let pendingFeeShare = transcoderInfo.value5
-  let pendingPricePerSegment = transcoderInfo.value6
-  let totalStake = bondingManager.transcoderTotalStake(transcoderAddress)
 
   // Create transcoder entity
   let transcoder = new Entity()
@@ -27,10 +26,14 @@ export function transcoderUpdated(event: TranscoderUpdate): void {
   transcoder.setU256('pendingRewardCut', pendingRewardCut)
   transcoder.setU256('pendingFeeShare', pendingFeeShare)
   transcoder.setU256('pendingPricePerSegment', pendingPricePerSegment)
+  transcoder.setU256('rewardCut', rewardCut)
+  transcoder.setU256('feeShare', feeShare)
+  transcoder.setU256('pricePerSegment', pricePerSegment)
   transcoder.setU256('totalStake', totalStake)
   transcoder.setU256('lastRewardRound', lastRewardRound)
   transcoder.setBoolean('active', active)
   transcoder.setBoolean('registered', registered)
+  transcoder.setString('status', registered ? 'Registered' : 'NotRegistered')
   
   // Apply store updates
   store.set('Transcoder', transcoderHash, transcoder)
