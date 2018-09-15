@@ -2,9 +2,7 @@
 export function transcoderUpdated(event: TranscoderUpdate): void {
   let bondingManager = BondingManager.bind(event.address, event.blockHash)
   let roundsManager = RoundsManager.bind(Address.fromString("3984fc4ceeef1739135476f625d36d6c35c40dc3"), event.blockHash)
-
   let currentRound = roundsManager.currentRound()
-  let transcoderHash = event.params.transcoder.toHex()
   let transcoderAddress = event.params.transcoder
   let active = bondingManager.isActiveTranscoder(transcoderAddress, currentRound)
   let transcoderInfo = bondingManager.getTranscoder(transcoderAddress)
@@ -21,8 +19,7 @@ export function transcoderUpdated(event: TranscoderUpdate): void {
   // Create transcoder entity
   let transcoder = new Entity()
   transcoder.setString('name', "Transcoder")
-  transcoder.setString('id', transcoderHash)
-  transcoder.setAddress('address', transcoderAddress)
+  transcoder.setAddress('id', transcoderAddress)
   transcoder.setU256('pendingRewardCut', pendingRewardCut)
   transcoder.setU256('pendingFeeShare', pendingFeeShare)
   transcoder.setU256('pendingPricePerSegment', pendingPricePerSegment)
@@ -36,5 +33,5 @@ export function transcoderUpdated(event: TranscoderUpdate): void {
   transcoder.setString('status', registered ? 'Registered' : 'NotRegistered')
   
   // Apply store updates
-  store.set('Transcoder', transcoderHash, transcoder)
+  store.set('Transcoder', transcoderAddress.toHex(), transcoder)
 }
