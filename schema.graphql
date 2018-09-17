@@ -1,14 +1,14 @@
 type Transcoder @entity {
-  id: ID!
-  active: Boolean!
-  ensName: Bytes!
-  status: Bytes!
-  lastRewardRound: BigInt!
-  rewardCut: BigInt!
-  feeShare: BigInt!  
-  pricePerSegment: BigInt!
-  pendingRewardCut: BigInt!
-  pendingFeeShare: BigInt!
-  pendingPricePerSegment: BigInt!
-  totalStake: BigInt!
+  id: ID
+  active: Boolean
+  ensName: Bytes
+  status: Bytes
+  lastRewardRound: BigInt
+  rewardCut: BigInt
+  feeShare: BigInt  
+  pricePerSegment: BigInt
+  pendingRewardCut: BigInt
+  pendingFeeShare: BigInt
+  pendingPricePerSegment: BigInt
+  totalStake: BigInt
 }

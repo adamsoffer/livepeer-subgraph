@@ -21,5 +21,11 @@ dataSources:
     - name: RoundsManager
       file: ./abis/RoundsManager.json
     eventHandlers:
-    - event: TranscoderUpdate(address,uint256,uint256,uint256,bool)
+    - event: TranscoderUpdate(address, uint256, uint256, uint256, bool)
       handler: transcoderUpdated
+    - event: TranscoderResigned(address)
+      handler: transcoderResigned
+    - event: TranscoderEvicted(address)
+      handler: transcoderEvicted
+    - event: Reward(address, uint256)
+      handler: reward

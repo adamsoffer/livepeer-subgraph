@@ -1,12 +1,11 @@
 // Respond to transcoder added events
-export function transcoderUpdated(event: TranscoderUpdate): void {
+ export function transcoderUpdated(event: TranscoderUpdate): void {
   let bondingManager = BondingManager.bind(event.address, event.blockHash)
   let roundsManager = RoundsManager.bind(Address.fromString("3984fc4ceeef1739135476f625d36d6c35c40dc3"), event.blockHash)
   let currentRound = roundsManager.currentRound()
   let transcoderAddress = event.params.transcoder
   let active = bondingManager.isActiveTranscoder(transcoderAddress, currentRound)
   let transcoderInfo = bondingManager.getTranscoder(transcoderAddress)
-  let totalStake = bondingManager.transcoderTotalStake(transcoderAddress)
   let registered = event.params.registered
   let pendingRewardCut = event.params.pendingRewardCut
   let pendingFeeShare = event.params.pendingFeeShare
@@ -18,20 +17,45 @@ export function transcoderUpdated(event: TranscoderUpdate): void {
 
   // Create transcoder entity
   let transcoder = new Entity()
-  transcoder.setString('name', "Transcoder")
-  transcoder.setAddress('id', transcoderAddress)
+  transcoder.setString('id', transcoderAddress.toHex())
   transcoder.setU256('pendingRewardCut', pendingRewardCut)
   transcoder.setU256('pendingFeeShare', pendingFeeShare)
   transcoder.setU256('pendingPricePerSegment', pendingPricePerSegment)
   transcoder.setU256('rewardCut', rewardCut)
   transcoder.setU256('feeShare', feeShare)
   transcoder.setU256('pricePerSegment', pricePerSegment)
-  transcoder.setU256('totalStake', totalStake)
   transcoder.setU256('lastRewardRound', lastRewardRound)
   transcoder.setBoolean('active', active)
   transcoder.setBoolean('registered', registered)
   transcoder.setString('status', registered ? 'Registered' : 'NotRegistered')
   
   // Apply store updates
+  store.set('Transcoder', transcoderAddress.toHex(), transcoder)
+}
+
+// Respond to transcoder added events
+export function transcoderResigned(event: TranscoderResigned): void {
+  let transcoderAddress = event.params.transcoder
+  
+  store.remove('Transcoder', transcoderAddress.toHex())
+}
+
+export function transcoderEvicted(event: TranscoderEvicted): void {
+  let transcoderAddress = event.params.transcoder
+
+  let transcoder = new Entity()
+  transcoder.setBoolean('active', false)
+
+  store.set('Transcoder', transcoderAddress.toHex(), transcoder)
+}
+
+export function reward(event: Reward): void {
+  let transcoderAddress = event.params.transcoder
+  let bondingManager = BondingManager.bind(event.address, event.blockHash)
+  let totalStake = bondingManager.transcoderTotalStake(transcoderAddress)
+
+  let transcoder = new Entity()
+  transcoder.setU256('active', totalStake)
+
   store.set('Transcoder', transcoderAddress.toHex(), transcoder)
 }
