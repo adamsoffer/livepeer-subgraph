@@ -1,5 +1,5 @@
 type Transcoder @entity {
-  id: ID
+  id: ID!
   active: Boolean
   ensName: Bytes
   status: Bytes
