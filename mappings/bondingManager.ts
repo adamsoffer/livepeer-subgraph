@@ -36,7 +36,7 @@
 // Respond to transcoder added events
 export function transcoderResigned(event: TranscoderResigned): void {
   let transcoderAddress = event.params.transcoder
-  
+
   store.remove('Transcoder', transcoderAddress.toHex())
 }
 

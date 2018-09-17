@@ -1,6 +1,4 @@
 {
-  "extend": "./node_modules/graph-cli/tsconfig.json",
-  "compilerOptions": {
-    "types": ["graph-cli"]
-  }
+  "extends": "./node_modules/graph-cli/tsconfig.json",
+  "files": ["./mappings/bondingManager.ts"]
 }
