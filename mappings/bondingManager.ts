@@ -55,7 +55,7 @@ export function reward(event: Reward): void {
   let totalStake = bondingManager.transcoderTotalStake(transcoderAddress)
 
   let transcoder = new Entity()
-  transcoder.setU256('active', totalStake)
+  transcoder.setU256('totalStake', totalStake)
 
   store.set('Transcoder', transcoderAddress.toHex(), transcoder)
 }
