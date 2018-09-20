@@ -56,17 +56,16 @@ export function transcoderSlashed(event: TranscoderSlashed): void {
 
 export function bond(event: Bond): void {
   let bondingManager = BondingManager.bind(event.address, event.blockHash)
-  
   let newDelegateAddress = event.params.newDelegate
   let newDelegateTotalStake = bondingManager.transcoderTotalStake(newDelegateAddress)
   let newDelegate = new Entity()
-  newDelegate.setU256('totalStake', newDelegateTotalStake)
-  store.set('Transcoder', newDelegateAddress.toHex(), newDelegate)
-
-
   let oldDelegateAddress = event.params.oldDelegate
   let oldDelegateTotalStake = bondingManager.transcoderTotalStake(oldDelegateAddress)
   let oldDelegate = new Entity()
+  
+  newDelegate.setU256('totalStake', newDelegateTotalStake)
+  store.set('Transcoder', newDelegateAddress.toHex(), newDelegate)
+  
   oldDelegate.setU256('totalStake', oldDelegateTotalStake)
   store.set('Transcoder', oldDelegateAddress.toHex(), oldDelegate)
 }
