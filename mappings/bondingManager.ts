@@ -33,29 +33,67 @@
   store.set('Transcoder', transcoderAddress.toHex(), transcoder)
 }
 
-// Respond to transcoder added events
 export function transcoderResigned(event: TranscoderResigned): void {
   let transcoderAddress = event.params.transcoder
-
   store.remove('Transcoder', transcoderAddress.toHex())
 }
 
 export function transcoderEvicted(event: TranscoderEvicted): void {
   let transcoderAddress = event.params.transcoder
-
   let transcoder = new Entity()
   transcoder.setBoolean('active', false)
-
   store.set('Transcoder', transcoderAddress.toHex(), transcoder)
 }
 
-export function reward(event: Reward): void {
+export function transcoderSlashed(event: TranscoderSlashed): void {
   let transcoderAddress = event.params.transcoder
   let bondingManager = BondingManager.bind(event.address, event.blockHash)
   let totalStake = bondingManager.transcoderTotalStake(transcoderAddress)
-
   let transcoder = new Entity()
   transcoder.setU256('totalStake', totalStake)
+  store.set('Transcoder', transcoderAddress.toHex(), transcoder)
+}
 
+export function bond(event: Bond): void {
+  let bondingManager = BondingManager.bind(event.address, event.blockHash)
+  
+  let newDelegateAddress = event.params.newDelegate
+  let newDelegateTotalStake = bondingManager.transcoderTotalStake(newDelegateAddress)
+  let newDelegate = new Entity()
+  newDelegate.setU256('totalStake', newDelegateTotalStake)
+  store.set('Transcoder', newDelegateAddress.toHex(), newDelegate)
+
+
+  let oldDelegateAddress = event.params.oldDelegate
+  let oldDelegateTotalStake = bondingManager.transcoderTotalStake(oldDelegateAddress)
+  let oldDelegate = new Entity()
+  oldDelegate.setU256('totalStake', oldDelegateTotalStake)
+  store.set('Transcoder', oldDelegateAddress.toHex(), oldDelegate)
+}
+
+export function unbond(event: Unbond): void {
+  let bondingManager = BondingManager.bind(event.address, event.blockHash)
+  let delegateAddress = event.params.delegate
+  let totalStake = bondingManager.transcoderTotalStake(delegateAddress)
+  let delegate = new Entity()
+  delegate.setU256('totalStake', totalStake)
+  store.set('Transcoder', delegateAddress.toHex(), delegate)
+}
+
+export function rebond(event: Rebond): void {
+  let bondingManager = BondingManager.bind(event.address, event.blockHash)
+  let delegateAddress = event.params.delegate
+  let totalStake = bondingManager.transcoderTotalStake(delegateAddress)
+  let delegate = new Entity()
+  delegate.setU256('totalStake', totalStake)
+  store.set('Transcoder', delegateAddress.toHex(), delegate)
+}
+
+export function reward(event: Reward): void {
+  let bondingManager = BondingManager.bind(event.address, event.blockHash)
+  let transcoderAddress = event.params.transcoder
+  let totalStake = bondingManager.transcoderTotalStake(transcoderAddress)
+  let transcoder = new Entity()
+  transcoder.setU256('totalStake', totalStake)
   store.set('Transcoder', transcoderAddress.toHex(), transcoder)
 }

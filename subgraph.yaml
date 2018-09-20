@@ -26,5 +26,13 @@ dataSources:
       handler: transcoderResigned
     - event: TranscoderEvicted(address)
       handler: transcoderEvicted
+    - event: TranscoderSlashed(address, address, uint256, uint256)
+      handler: transcoderSlashed
+    - event: Bond(address, address, address, uint256, uint256)
+      handler: bond
+    - event: Unbond(address, address, uint256, uint256, uint256)
+      handler: unbond
+    - event: Rebond(address, address, uint256, uint256)
+      handler: rebond
     - event: Reward(address, uint256)
       handler: reward
