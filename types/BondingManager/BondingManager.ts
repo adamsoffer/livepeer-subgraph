@@ -1,10 +1,26 @@
-class TranscoderUpdate extends EthereumEvent {
+import {
+  EthereumEvent,
+  SmartContract,
+  EthereumValue,
+  JSONValue,
+  TypedMap,
+  Entity,
+  Bytes,
+  Address,
+  I128,
+  U128,
+  I256,
+  U256,
+  H256
+} from "@graphprotocol/graph-ts";
+
+export class TranscoderUpdate extends EthereumEvent {
   get params(): TranscoderUpdateParams {
     return new TranscoderUpdateParams(this);
   }
 }
 
-class TranscoderUpdateParams {
+export class TranscoderUpdateParams {
   _event: TranscoderUpdate;
 
   constructor(event: TranscoderUpdate) {
@@ -32,13 +48,13 @@ class TranscoderUpdateParams {
   }
 }
 
-class TranscoderEvicted extends EthereumEvent {
+export class TranscoderEvicted extends EthereumEvent {
   get params(): TranscoderEvictedParams {
     return new TranscoderEvictedParams(this);
   }
 }
 
-class TranscoderEvictedParams {
+export class TranscoderEvictedParams {
   _event: TranscoderEvicted;
 
   constructor(event: TranscoderEvicted) {
@@ -50,13 +66,13 @@ class TranscoderEvictedParams {
   }
 }
 
-class TranscoderResigned extends EthereumEvent {
+export class TranscoderResigned extends EthereumEvent {
   get params(): TranscoderResignedParams {
     return new TranscoderResignedParams(this);
   }
 }
 
-class TranscoderResignedParams {
+export class TranscoderResignedParams {
   _event: TranscoderResigned;
 
   constructor(event: TranscoderResigned) {
@@ -68,13 +84,13 @@ class TranscoderResignedParams {
   }
 }
 
-class TranscoderSlashed extends EthereumEvent {
+export class TranscoderSlashed extends EthereumEvent {
   get params(): TranscoderSlashedParams {
     return new TranscoderSlashedParams(this);
   }
 }
 
-class TranscoderSlashedParams {
+export class TranscoderSlashedParams {
   _event: TranscoderSlashed;
 
   constructor(event: TranscoderSlashed) {
@@ -98,13 +114,13 @@ class TranscoderSlashedParams {
   }
 }
 
-class Reward extends EthereumEvent {
+export class Reward extends EthereumEvent {
   get params(): RewardParams {
     return new RewardParams(this);
   }
 }
 
-class RewardParams {
+export class RewardParams {
   _event: Reward;
 
   constructor(event: Reward) {
@@ -120,13 +136,13 @@ class RewardParams {
   }
 }
 
-class Bond extends EthereumEvent {
+export class Bond extends EthereumEvent {
   get params(): BondParams {
     return new BondParams(this);
   }
 }
 
-class BondParams {
+export class BondParams {
   _event: Bond;
 
   constructor(event: Bond) {
@@ -154,13 +170,13 @@ class BondParams {
   }
 }
 
-class Unbond extends EthereumEvent {
+export class Unbond extends EthereumEvent {
   get params(): UnbondParams {
     return new UnbondParams(this);
   }
 }
 
-class UnbondParams {
+export class UnbondParams {
   _event: Unbond;
 
   constructor(event: Unbond) {
@@ -188,13 +204,13 @@ class UnbondParams {
   }
 }
 
-class Rebond extends EthereumEvent {
+export class Rebond extends EthereumEvent {
   get params(): RebondParams {
     return new RebondParams(this);
   }
 }
 
-class RebondParams {
+export class RebondParams {
   _event: Rebond;
 
   constructor(event: Rebond) {
@@ -218,13 +234,13 @@ class RebondParams {
   }
 }
 
-class WithdrawStake extends EthereumEvent {
+export class WithdrawStake extends EthereumEvent {
   get params(): WithdrawStakeParams {
     return new WithdrawStakeParams(this);
   }
 }
 
-class WithdrawStakeParams {
+export class WithdrawStakeParams {
   _event: WithdrawStake;
 
   constructor(event: WithdrawStake) {
@@ -248,13 +264,13 @@ class WithdrawStakeParams {
   }
 }
 
-class WithdrawFees extends EthereumEvent {
+export class WithdrawFees extends EthereumEvent {
   get params(): WithdrawFeesParams {
     return new WithdrawFeesParams(this);
   }
 }
 
-class WithdrawFeesParams {
+export class WithdrawFeesParams {
   _event: WithdrawFees;
 
   constructor(event: WithdrawFees) {
@@ -266,13 +282,13 @@ class WithdrawFeesParams {
   }
 }
 
-class SetController extends EthereumEvent {
+export class SetController extends EthereumEvent {
   get params(): SetControllerParams {
     return new SetControllerParams(this);
   }
 }
 
-class SetControllerParams {
+export class SetControllerParams {
   _event: SetController;
 
   constructor(event: SetController) {
@@ -284,13 +300,13 @@ class SetControllerParams {
   }
 }
 
-class ParameterUpdate extends EthereumEvent {
+export class ParameterUpdate extends EthereumEvent {
   get params(): ParameterUpdateParams {
     return new ParameterUpdateParams(this);
   }
 }
 
-class ParameterUpdateParams {
+export class ParameterUpdateParams {
   _event: ParameterUpdate;
 
   constructor(event: ParameterUpdate) {
@@ -302,7 +318,7 @@ class ParameterUpdateParams {
   }
 }
 
-class BondingManager__getTranscoderEarningsPoolForRoundResult {
+export class BondingManager__getTranscoderEarningsPoolForRoundResult {
   value0: U256;
   value1: U256;
   value2: U256;
@@ -325,7 +341,7 @@ class BondingManager__getTranscoderEarningsPoolForRoundResult {
   }
 }
 
-class BondingManager__getDelegatorUnbondingLockResult {
+export class BondingManager__getDelegatorUnbondingLockResult {
   value0: U256;
   value1: U256;
 
@@ -342,7 +358,7 @@ class BondingManager__getDelegatorUnbondingLockResult {
   }
 }
 
-class BondingManager__getTranscoderResult {
+export class BondingManager__getTranscoderResult {
   value0: U256;
   value1: U256;
   value2: U256;
@@ -382,7 +398,7 @@ class BondingManager__getTranscoderResult {
   }
 }
 
-class BondingManager__getDelegatorResult {
+export class BondingManager__getDelegatorResult {
   value0: U256;
   value1: U256;
   value2: Address;
@@ -422,9 +438,9 @@ class BondingManager__getDelegatorResult {
   }
 }
 
-class BondingManager extends SmartContract {
-  static bind(address: Address, blockHash: H256): BondingManager {
-    return new BondingManager("BondingManager", address, blockHash);
+export class BondingManager extends SmartContract {
+  static bind(address: Address): BondingManager {
+    return new BondingManager("BondingManager", address);
   }
 
   maxEarningsClaimsRounds(): U256 {

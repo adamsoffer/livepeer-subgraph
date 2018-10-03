@@ -1,10 +1,26 @@
-class NewRound extends EthereumEvent {
+import {
+  EthereumEvent,
+  SmartContract,
+  EthereumValue,
+  JSONValue,
+  TypedMap,
+  Entity,
+  Bytes,
+  Address,
+  I128,
+  U128,
+  I256,
+  U256,
+  H256
+} from "@graphprotocol/graph-ts";
+
+export class NewRound extends EthereumEvent {
   get params(): NewRoundParams {
     return new NewRoundParams(this);
   }
 }
 
-class NewRoundParams {
+export class NewRoundParams {
   _event: NewRound;
 
   constructor(event: NewRound) {
@@ -16,9 +32,9 @@ class NewRoundParams {
   }
 }
 
-class RoundsManager extends SmartContract {
-  static bind(address: Address, blockHash: H256): RoundsManager {
-    return new RoundsManager("RoundsManager", address, blockHash);
+export class RoundsManager extends SmartContract {
+  static bind(address: Address): RoundsManager {
+    return new RoundsManager("RoundsManager", address);
   }
 
   lastRoundLengthUpdateRound(): U256 {

@@ -5,10 +5,15 @@ type Transcoder @entity {
   status: Bytes
   lastRewardRound: BigInt
   rewardCut: BigInt
-  feeShare: BigInt  
+  feeShare: BigInt
   pricePerSegment: BigInt
   pendingRewardCut: BigInt
   pendingFeeShare: BigInt
   pendingPricePerSegment: BigInt
   totalStake: BigInt
+}
+
+type Round @entity {
+  id: ID!
+  round: BigInt
 }
