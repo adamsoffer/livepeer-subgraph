@@ -9,14 +9,15 @@ export function newRound(event: NewRound): void {
   let bondingManager = BondingManager.bind(
     Address.fromString('511bc4556d823ae99630ae8de28b9b80df90ea2e')
   )
+  let EMPTY_ADDRESS = Address.fromString(
+    '0000000000000000000000000000000000000000'
+  )
   //let totalTranscoders = bondingManager.getTranscoderPoolSize()
   let currentTranscoder = bondingManager.getFirstTranscoderInPool()
   let transcoder = new Entity()
 
-  // Updates all active transcoders total stake. TODO: replace hardcoded
-  // transcoders total with getTranscoderPoolSize() when graph-ts supports
-  // BigInt to numeric primitive conversion
-  for (let i: i32 = 0; i < 20; i++) {
+  // Updates all active transcoders total stake.
+  while (EMPTY_ADDRESS.toHex() != currentTranscoder.toHex()) {
     let totalStake = bondingManager.transcoderTotalStake(currentTranscoder)
     transcoder.setU256('totalStake', totalStake)
     store.set('Transcoder', currentTranscoder.toHex(), transcoder)
