@@ -147,6 +147,26 @@
       {
         "name": "claimableStake",
         "type": "uint256"
+      },
+      {
+        "name": "transcoderRewardCut",
+        "type": "uint256"
+      },
+      {
+        "name": "transcoderFeeShare",
+        "type": "uint256"
+      },
+      {
+        "name": "transcoderRewardPool",
+        "type": "uint256"
+      },
+      {
+        "name": "transcoderFeePool",
+        "type": "uint256"
+      },
+      {
+        "name": "hasTranscoderRewardFeePool",
+        "type": "bool"
       }
     ],
     "payable": false,

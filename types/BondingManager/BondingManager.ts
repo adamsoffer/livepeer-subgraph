@@ -323,12 +323,32 @@ export class BondingManager__getTranscoderEarningsPoolForRoundResult {
   value1: U256;
   value2: U256;
   value3: U256;
+  value4: U256;
+  value5: U256;
+  value6: U256;
+  value7: U256;
+  value8: boolean;
 
-  constructor(value0: U256, value1: U256, value2: U256, value3: U256) {
+  constructor(
+    value0: U256,
+    value1: U256,
+    value2: U256,
+    value3: U256,
+    value4: U256,
+    value5: U256,
+    value6: U256,
+    value7: U256,
+    value8: boolean
+  ) {
     this.value0 = value0;
     this.value1 = value1;
     this.value2 = value2;
     this.value3 = value3;
+    this.value4 = value4;
+    this.value5 = value5;
+    this.value6 = value6;
+    this.value7 = value7;
+    this.value8 = value8;
   }
 
   toMap(): TypedMap<string, EthereumValue> {
@@ -337,6 +357,11 @@ export class BondingManager__getTranscoderEarningsPoolForRoundResult {
     map.set("value1", EthereumValue.fromU256(this.value1));
     map.set("value2", EthereumValue.fromU256(this.value2));
     map.set("value3", EthereumValue.fromU256(this.value3));
+    map.set("value4", EthereumValue.fromU256(this.value4));
+    map.set("value5", EthereumValue.fromU256(this.value5));
+    map.set("value6", EthereumValue.fromU256(this.value6));
+    map.set("value7", EthereumValue.fromU256(this.value7));
+    map.set("value8", EthereumValue.fromBoolean(this.value8));
     return map;
   }
 }
@@ -482,7 +507,12 @@ export class BondingManager extends SmartContract {
       result[0].toU256(),
       result[1].toU256(),
       result[2].toU256(),
-      result[3].toU256()
+      result[3].toU256(),
+      result[4].toU256(),
+      result[5].toU256(),
+      result[6].toU256(),
+      result[7].toU256(),
+      result[8].toBoolean()
     );
   }
 
