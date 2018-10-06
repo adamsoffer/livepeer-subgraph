@@ -57,7 +57,9 @@ export function transcoderUpdated(event: TranscoderUpdate): void {
 
 export function transcoderResigned(event: TranscoderResigned): void {
   let transcoderAddress = event.params.transcoder
-  store.remove('Transcoder', transcoderAddress.toHex())
+  let transcoder = new Entity()
+  transcoder.setBoolean('active', false)
+  store.set('Transcoder', transcoderAddress.toHex(), transcoder)
 }
 
 export function transcoderEvicted(event: TranscoderEvicted): void {

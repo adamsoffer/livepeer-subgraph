@@ -3,9 +3,9 @@
 
 
 "@graphprotocol/graph-cli@^0.3.1":
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/@graphprotocol/graph-cli/-/graph-cli-0.3.1.tgz#e4acc88868fa56df474f7553b3e0acc4afff91f5"
-  integrity sha512-8D+cHXED4UGPlvrcwzR4opK/2W+/guEPJIJnGfrX25eGETlZ2QVo98DdRUEA45fhpy9bLH589uiSm/zwfQOpzg==
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/@graphprotocol/graph-cli/-/graph-cli-0.3.2.tgz#95be1baa8e7f27d261420b94d309c531722c66c2"
+  integrity sha512-kgVQUVQo1rnODEdBxyyzd8/TgXeLo9QcPAgeA+DLz4bT13pn4yLQ3q1XbzyjHie1KnHJ1NlBXiBNrXuzSrmS9A==
   dependencies:
     assemblyscript "https://github.com/AssemblyScript/assemblyscript#c4ebc8c291c1068da73ddf1a381eab93e1f69e11"
     chalk "^2.4.1"
@@ -756,9 +756,9 @@ end-of-stream@^1.0.0, end-of-stream@^1.1.0:
     once "^1.4.0"
 
 env-variable@0.0.x:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/env-variable/-/env-variable-0.0.4.tgz#0d6280cf507d84242befe35a512b5ae4be77c54e"
-  integrity sha512-+jpGxSWG4vr6gVxUHOc4p+ilPnql7NzZxOZBxNldsKGjCF+97df3CbuX7XMaDa5oAVkKQj4rKp38rYdC4VcpDg==
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/env-variable/-/env-variable-0.0.5.tgz#913dd830bef11e96a039c038d4130604eba37f88"
+  integrity sha512-zoB603vQReOFvTg5xMl9I1P2PnHsHQQKTEowsKKD7nseUfJq6UWzK+4YtlWUO1nhiQUxe6XMkk+JleSZD1NZFA==
 
 es6-promise@^4.0.3:
   version "4.2.5"
@@ -1525,9 +1525,9 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   integrity sha512-s5kLOcnH0XqDO+FvuaLX8DDjZ18CGFk7VygH40QoKPUQhW4e2rvM0rwUq0t8IQDOwYSeLK01U90OjzBTme2QqA==
 
 kuler@1.0.x:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/kuler/-/kuler-1.0.0.tgz#904ad31c373b781695854d32be33818bf1d60250"
-  integrity sha512-oyy6pu/yWRjiVfCoJebNUKFL061sNtrs9ejKTbirIwY3oiHmENVCSkHhxDV85Dkm7JYR/czMCBeoM87WilTdSg==
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/kuler/-/kuler-1.0.1.tgz#ef7c784f36c9fb6e16dd3150d152677b2b0228a6"
+  integrity sha512-J9nVUucG1p/skKul6DU3PUZrhs0LPulNaeUOox0IyXDi8S4CztTHs1gQphhuZmzXG7VOQSf6NJfKuzteQLv9gQ==
   dependencies:
     colornames "^1.1.1"
 
