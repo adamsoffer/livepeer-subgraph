@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@graphprotocol/graph-cli@^0.3.1":
+"@graphprotocol/graph-cli@^0.3.2":
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/@graphprotocol/graph-cli/-/graph-cli-0.3.2.tgz#95be1baa8e7f27d261420b94d309c531722c66c2"
   integrity sha512-kgVQUVQo1rnODEdBxyyzd8/TgXeLo9QcPAgeA+DLz4bT13pn4yLQ3q1XbzyjHie1KnHJ1NlBXiBNrXuzSrmS9A==
@@ -22,10 +22,10 @@
     request "^2.88.0"
     winston "^3.0.0"
 
-"@graphprotocol/graph-ts@^0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@graphprotocol/graph-ts/-/graph-ts-0.0.1.tgz#4a515bb68ab14e6caf70cf154010c357ddb19db9"
-  integrity sha512-m5L2XbRvgRuspHdouJ1Up/pOP1QCfeKGgDfJMv3UIXg+sLVwFQEZKwK5U0reaaUTbgnRBUplZt4Gf+ld9aGnOg==
+"@graphprotocol/graph-ts@^0.3.2":
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/@graphprotocol/graph-ts/-/graph-ts-0.3.4.tgz#50105522a30a68238e3bbd380332ebcb80e59350"
+  integrity sha512-x8W/TP22TLOyl5uD1v5nSUedgEIwzrQoEINZmhy12zxT2EZM/1hj/+v0FYgevCv3lvnw2wI8R3tJMNrvUF2Hkg==
   dependencies:
     assemblyscript "^0.3.0"
 
