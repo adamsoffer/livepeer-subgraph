@@ -48,7 +48,6 @@ export function transcoderUpdated(event: TranscoderUpdate): void {
   transcoder.setU256('pricePerSegment', pricePerSegment)
   transcoder.setU256('lastRewardRound', lastRewardRound)
   transcoder.setBoolean('active', active)
-  transcoder.setBoolean('registered', registered)
   transcoder.setString('status', registered ? 'Registered' : 'NotRegistered')
 
   store.set('Transcoder', transcoderAddress.toHex(), transcoder)
@@ -56,12 +55,18 @@ export function transcoderUpdated(event: TranscoderUpdate): void {
 
 export function transcoderResigned(event: TranscoderResigned): void {
   let transcoderAddress = event.params.transcoder
-  store.remove('Transcoder', transcoderAddress.toHex())
+  let transcoder = new Entity()
+  transcoder.setString('status', 'NotRegistered')
+  transcoder.setBoolean('active', false)
+  store.set('Transcoder', transcoderAddress.toHex(), transcoder)
 }
 
 export function transcoderEvicted(event: TranscoderEvicted): void {
   let transcoderAddress = event.params.transcoder
-  store.remove('Transcoder', transcoderAddress.toHex())
+  let transcoder = new Entity()
+  transcoder.setString('status', 'NotRegistered')
+  transcoder.setBoolean('active', false)
+  store.set('Transcoder', transcoderAddress.toHex(), transcoder)
 }
 
 export function transcoderSlashed(event: TranscoderSlashed): void {
