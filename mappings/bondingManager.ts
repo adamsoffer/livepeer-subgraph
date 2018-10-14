@@ -51,7 +51,6 @@ export function transcoderUpdated(event: TranscoderUpdate): void {
   transcoder.setBoolean('registered', registered)
   transcoder.setString('status', registered ? 'Registered' : 'NotRegistered')
 
-  // Apply store updates
   store.set('Transcoder', transcoderAddress.toHex(), transcoder)
 }
 
@@ -62,9 +61,7 @@ export function transcoderResigned(event: TranscoderResigned): void {
 
 export function transcoderEvicted(event: TranscoderEvicted): void {
   let transcoderAddress = event.params.transcoder
-  let transcoder = new Entity()
-  transcoder.setBoolean('active', false)
-  store.set('Transcoder', transcoderAddress.toHex(), transcoder)
+  store.remove('Transcoder', transcoderAddress.toHex())
 }
 
 export function transcoderSlashed(event: TranscoderSlashed): void {
