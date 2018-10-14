@@ -55,18 +55,12 @@ export function transcoderUpdated(event: TranscoderUpdate): void {
 
 export function transcoderResigned(event: TranscoderResigned): void {
   let transcoderAddress = event.params.transcoder
-  let transcoder = new Entity()
-  transcoder.setString('status', 'NotRegistered')
-  transcoder.setBoolean('active', false)
-  store.set('Transcoder', transcoderAddress.toHex(), transcoder)
+  store.remove('Transcoder', transcoderAddress.toHex())
 }
 
 export function transcoderEvicted(event: TranscoderEvicted): void {
   let transcoderAddress = event.params.transcoder
-  let transcoder = new Entity()
-  transcoder.setString('status', 'NotRegistered')
-  transcoder.setBoolean('active', false)
-  store.set('Transcoder', transcoderAddress.toHex(), transcoder)
+  store.remove('Transcoder', transcoderAddress.toHex())
 }
 
 export function transcoderSlashed(event: TranscoderSlashed): void {

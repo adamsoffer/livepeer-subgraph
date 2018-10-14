@@ -22,7 +22,7 @@
     request "^2.88.0"
     winston "^3.0.0"
 
-"@graphprotocol/graph-ts@^0.3.2":
+"@graphprotocol/graph-ts@^0.3.4":
   version "0.3.4"
   resolved "https://registry.yarnpkg.com/@graphprotocol/graph-ts/-/graph-ts-0.3.4.tgz#50105522a30a68238e3bbd380332ebcb80e59350"
   integrity sha512-x8W/TP22TLOyl5uD1v5nSUedgEIwzrQoEINZmhy12zxT2EZM/1hj/+v0FYgevCv3lvnw2wI8R3tJMNrvUF2Hkg==
@@ -173,9 +173,9 @@ assemblyscript@^0.3.0:
     minimist "^1.2.0"
     wabt "0.0.13-nightly.20170628"
 
-"assemblyscript@git+https://github.com/AssemblyScript/assemblyscript.git#c4ebc8c291c1068da73ddf1a381eab93e1f69e11":
+"assemblyscript@https://github.com/AssemblyScript/assemblyscript#c4ebc8c291c1068da73ddf1a381eab93e1f69e11":
   version "0.5.0"
-  resolved "git+https://github.com/AssemblyScript/assemblyscript.git#c4ebc8c291c1068da73ddf1a381eab93e1f69e11"
+  resolved "https://github.com/AssemblyScript/assemblyscript#c4ebc8c291c1068da73ddf1a381eab93e1f69e11"
   dependencies:
     "@protobufjs/utf8" "^1.1.0"
     binaryen "48.0.0-nightly.20180627"
