@@ -15,10 +15,10 @@ export function newRound(event: NewRound): void {
   )
   //let totalTranscoders = bondingManager.getTranscoderPoolSize()
   let currentTranscoder = bondingManager.getFirstTranscoderInPool()
-  let transcoder = new Entity()
 
   // Updates all active transcoders total stake.
   while (EMPTY_ADDRESS.toHex() != currentTranscoder.toHex()) {
+    let transcoder = new Entity()
     let currentRound = roundsManager.currentRound()
     let active = bondingManager.isActiveTranscoder(
       currentTranscoder,
