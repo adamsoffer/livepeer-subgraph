@@ -1,8 +1,8 @@
 type Transcoder @entity {
   id: ID!
-  active: Boolean!
+  active: Boolean
   ensName: String
-  status: String!
+  status: String
   lastRewardRound: BigInt
   rewardCut: BigInt
   feeShare: BigInt
