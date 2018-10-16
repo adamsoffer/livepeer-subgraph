@@ -12,8 +12,3 @@ type Transcoder @entity {
   pendingPricePerSegment: BigInt
   totalStake: BigInt
 }
-
-type Round @entity {
-  id: ID!
-  round: BigInt
-}

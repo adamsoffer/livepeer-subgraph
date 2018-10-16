@@ -34,12 +34,4 @@ export function newRound(event: NewRound): void {
       currentTranscoder
     )
   }
-
-  let roundNumber = event.params.round
-  let round = new Entity()
-  round.setString('id', roundNumber.toHex())
-  round.setU256('round', roundNumber)
-
-  // // Apply store updates
-  store.set('Round', roundNumber.toHex(), round)
 }
