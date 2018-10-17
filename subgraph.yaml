@@ -48,6 +48,8 @@ dataSources:
       file: ./mappings/roundsManager.ts
       entities:
         - Transcoder
+        - Reward
+        - Round
       abis:
         - name: RoundsManager
           file: ./abis/RoundsManager.json

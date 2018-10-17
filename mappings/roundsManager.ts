@@ -1,7 +1,7 @@
 import 'allocator/arena'
 export { allocate_memory }
 
-import { Entity, store, Address } from '@graphprotocol/graph-ts'
+import { Entity, store, Address, U256 } from '@graphprotocol/graph-ts'
 import { RoundsManager, NewRound } from '../types/RoundsManager/RoundsManager'
 import { BondingManager } from '../types/BondingManager/BondingManager'
 
@@ -13,25 +13,48 @@ export function newRound(event: NewRound): void {
   let EMPTY_ADDRESS = Address.fromString(
     '0000000000000000000000000000000000000000'
   )
-  //let totalTranscoders = bondingManager.getTranscoderPoolSize()
   let currentTranscoder = bondingManager.getFirstTranscoderInPool()
+  let transcoder = new Entity()
+  let reward = new Entity()
+  let currentRound: U256
+  let active: boolean
+  let totalStake: U256
+  let rewardId: string
 
-  // Updates all active transcoders total stake.
   while (EMPTY_ADDRESS.toHex() != currentTranscoder.toHex()) {
-    let transcoder = new Entity()
-    let currentRound = roundsManager.currentRound()
-    let active = bondingManager.isActiveTranscoder(
-      currentTranscoder,
-      currentRound
-    )
-    let totalStake = bondingManager.transcoderTotalStake(currentTranscoder)
+    currentRound = roundsManager.currentRound()
+    active = bondingManager.isActiveTranscoder(currentTranscoder, currentRound)
+    totalStake = bondingManager.transcoderTotalStake(currentTranscoder)
 
     transcoder.setU256('totalStake', totalStake)
     transcoder.setBoolean('active', active)
-
     store.set('Transcoder', currentTranscoder.toHex(), transcoder)
+
+    if (active) {
+      rewardId = currentTranscoder.toHex() + '-' + currentRound.toHex()
+      reward.setString('id', rewardId)
+      reward.setString('round', currentRound.toHex())
+      reward.setString('transcoder', currentTranscoder.toHex())
+      store.set('Reward', rewardId, reward)
+    }
+
     currentTranscoder = bondingManager.getNextTranscoderInPool(
       currentTranscoder
     )
   }
+
+  let round = new Entity()
+  let roundNumber = event.params.round
+  let lastInitializedRound = roundsManager.lastInitializedRound()
+  let length = roundsManager.roundLength()
+  let startBlock = roundsManager.currentRoundStartBlock()
+
+  round.setString('id', roundNumber.toHex())
+  round.setBoolean('initialized', true)
+  round.setU256('lastInitializedRound', lastInitializedRound)
+  round.setU256('length', length)
+  round.setU256('startBlock', startBlock)
+
+  // // Apply store updates
+  store.set('Round', roundNumber.toHex(), round)
 }

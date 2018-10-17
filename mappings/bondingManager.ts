@@ -15,12 +15,13 @@ import {
 } from '../types/BondingManager/BondingManager'
 import { RoundsManager } from '../types/RoundsManager/RoundsManager'
 
+let roundsManager = RoundsManager.bind(
+  Address.fromString('3984fc4ceeef1739135476f625d36d6c35c40dc3')
+)
+
 // Respond to transcoder added events
 export function transcoderUpdated(event: TranscoderUpdate): void {
   let bondingManager = BondingManager.bind(event.address)
-  let roundsManager = RoundsManager.bind(
-    Address.fromString('3984fc4ceeef1739135476f625d36d6c35c40dc3')
-  )
   let currentRound = roundsManager.currentRound()
   let transcoderAddress = event.params.transcoder
   let active = bondingManager.isActiveTranscoder(
@@ -123,4 +124,10 @@ export function reward(event: Reward): void {
   let transcoder = new Entity()
   transcoder.setU256('totalStake', totalStake)
   store.set('Transcoder', transcoderAddress.toHex(), transcoder)
+
+  let reward = new Entity()
+  let currentRound = roundsManager.currentRound()
+  let rewardId = transcoderAddress.toHex() + '-' + currentRound.toHex()
+  reward.setU256('rewardTokens', event.params.amount)
+  store.set('Reward', rewardId, reward)
 }

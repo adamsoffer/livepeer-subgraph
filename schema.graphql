@@ -11,4 +11,20 @@ type Transcoder @entity {
   pendingFeeShare: BigInt
   pendingPricePerSegment: BigInt
   totalStake: BigInt
+  rewards: [Reward] @derivedFrom(field: "transcoder")
+}
+
+type Reward @entity {
+  id: ID!
+  round: Round
+  transcoder: Transcoder
+  rewardTokens: BigInt
+}
+
+type Round @entity {
+  id: ID!
+  initialized: Boolean
+  length: BigInt
+  lastInitializedRound: BigInt
+  startBlock: BigInt
 }
