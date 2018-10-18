@@ -27,4 +27,5 @@ type Round @entity {
   length: BigInt
   lastInitializedRound: BigInt
   startBlock: BigInt
+  rewards: [Reward] @derivedFrom(field: "round")
 }
