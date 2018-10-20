@@ -24,9 +24,7 @@ export function newRound(event: NewRound): void {
   while (EMPTY_ADDRESS.toHex() != currentTranscoder.toHex()) {
     currentRound = roundsManager.currentRound()
     active = bondingManager.isActiveTranscoder(currentTranscoder, currentRound)
-    totalStake = bondingManager.transcoderTotalStake(currentTranscoder)
 
-    transcoder.setU256('totalStake', totalStake)
     transcoder.setBoolean('active', active)
     store.set('Transcoder', currentTranscoder.toHex(), transcoder)
 
