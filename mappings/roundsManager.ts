@@ -18,7 +18,6 @@ export function newRound(event: NewRound): void {
   let reward = new Entity()
   let currentRound: U256
   let active: boolean
-  let totalStake: U256
   let rewardId: string
 
   while (EMPTY_ADDRESS.toHex() != currentTranscoder.toHex()) {
