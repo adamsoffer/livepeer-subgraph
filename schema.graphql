@@ -1,4 +1,58 @@
-type Counter @entity {
+type Transcoder @entity {
   id: ID!
-  value: BigInt!
+  active: Boolean
+  ensName: String
+  status: TranscoderStatus
+  lastRewardRound: BigInt
+  rewardCut: BigInt
+  feeShare: BigInt
+  pricePerSegment: BigInt
+  pendingRewardCut: BigInt
+  pendingFeeShare: BigInt
+  pendingPricePerSegment: BigInt
+  totalStake: BigInt
+  rewards: [Reward!] @derivedFrom(field: "transcoder")
+  delegators: [Delegator!]
+}
+
+type Reward @entity {
+  id: ID!
+  round: Round
+  transcoder: Transcoder
+  rewardTokens: BigInt
+}
+
+type Share @entity {
+  id: ID!
+  rewardTokens: BigInt
+  fees: BigInt
+  delegator: Delegator
+  round: Round
+}
+
+type Round @entity {
+  id: ID!
+  initialized: Boolean
+  length: BigInt
+  timestamp: BigInt
+  lastInitializedRound: BigInt
+  startBlock: BigInt
+  rewards: [Reward!] @derivedFrom(field: "round")
+  delegatorShares: [Share!] @derivedFrom(field: "round")
+}
+
+type Delegator @entity {
+  id: ID!
+  bondedAmount: BigInt
+  fees: BigInt
+  delegate: Transcoder
+  startRound: Round
+  pendingFees: BigInt
+  pendingStake: BigInt
+  shares: [Share!] @derivedFrom(field: "delegator")
+}
+
+enum TranscoderStatus @entity {
+  NotRegistered
+  Registered
 }
