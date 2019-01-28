@@ -1,5 +1,5 @@
 specVersion: 0.0.1
-description: An early release, experimental version of the Livepeer Subraph
+description: An early release, experimental version of the Livepeer Subgraph
 repository: https://github.com/adamsoffer/livepeer-subgraph
 schema:
   file: ./schema.graphql

@@ -302,6 +302,8 @@ export function reward(event: RewardEvent): void {
   let delegators: Array<string> = transcoder.delegators as Array<string>
   let roundsSinceLastClaim: number
   let lastClaimRound: BigInt
+  let targetContract: string
+  let isDeprecated: Boolean
 
   for (let i = 0; i < delegators.length; i++) {
     delegatorAddress = Address.fromString(delegators[i])
@@ -309,12 +311,12 @@ export function reward(event: RewardEvent): void {
     delegatorData = bondingManager.getDelegator(delegatorAddress)
 
     // Get target contract address
-    let targetContract = controller
+    targetContract = controller
       .getContract(bondingManager.targetContractId())
       .toHex()
 
     // Check to see if target contract is deprecated
-    let isDeprecated =
+    isDeprecated =
       targetContract == BondingManagerV1 || targetContract == BondingManagerV2
 
     // Account for getDelegator return signature change
