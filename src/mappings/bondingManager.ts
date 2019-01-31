@@ -303,7 +303,7 @@ export function reward(event: RewardEvent): void {
   let roundsSinceLastClaim: number
   let lastClaimRound: BigInt
   let targetContract: string
-  let isDeprecated: Boolean
+  let isDeprecated: boolean
 
   for (let i = 0; i < delegators.length; i++) {
     delegatorAddress = Address.fromString(delegators[i])
