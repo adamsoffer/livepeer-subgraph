@@ -26,10 +26,10 @@
     which "^1.3.1"
     winston "^3.0.0"
 
-"@graphprotocol/graph-ts@^0.5.0":
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/@graphprotocol/graph-ts/-/graph-ts-0.5.0.tgz#e05310437ee29cd04401cc2e5ff31ac33f39cca5"
-  integrity sha512-KAb+moDMgAGjD9knxE7ac4q1XCaW0KN0kq2tHsDmFlmvUQvl8V3zwRdAIv4/SLnuoFna9klxnSQEWR4G/0cfbw==
+"@graphprotocol/graph-ts@^0.5.1":
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/@graphprotocol/graph-ts/-/graph-ts-0.5.1.tgz#c819387420468505e85f0960add6d3a2474b2c7e"
+  integrity sha512-up8AKeVLC/RP6duR0D+pi+/B4QJsIjZSYWSDYxOQdx1zkyzj7TPDwHgs0M7ubESkoHwtUyiB5o4ay2FL46G3YQ==
   dependencies:
     assemblyscript "https://github.com/AssemblyScript/assemblyscript#ced01216f88a3037d0657a45255dc6df646ff10c"
 
@@ -150,6 +150,15 @@ asn1@~0.2.3:
 "assemblyscript@git+https://github.com/AssemblyScript/assemblyscript.git#ced01216f88a3037d0657a45255dc6df646ff10c":
   version "0.5.0"
   resolved "git+https://github.com/AssemblyScript/assemblyscript.git#ced01216f88a3037d0657a45255dc6df646ff10c"
+  dependencies:
+    "@protobufjs/utf8" "^1.1.0"
+    binaryen "55.0.0-nightly.20181130"
+    glob "^7.1.3"
+    long "^4.0.0"
+
+"assemblyscript@https://github.com/AssemblyScript/assemblyscript#ced01216f88a3037d0657a45255dc6df646ff10c":
+  version "0.5.0"
+  resolved "https://github.com/AssemblyScript/assemblyscript#ced01216f88a3037d0657a45255dc6df646ff10c"
   dependencies:
     "@protobufjs/utf8" "^1.1.0"
     binaryen "55.0.0-nightly.20181130"

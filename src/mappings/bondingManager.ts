@@ -25,13 +25,14 @@ let roundsManager = RoundsManager.bind(
   Address.fromString('3984fc4ceeef1739135476f625d36d6c35c40dc3')
 )
 
+// Bind Controller contract
 let controller = Controller.bind(
   Address.fromString('f96d54e490317c557a967abfa5d6e33006be69b3')
 )
 
 // Deprecated target contracts
-const BondingManagerV1 = '0x81eb0b10ff8703905904e4d91cf6aa575d59736f'
-const BondingManagerV2 = '0x5a9512826eaaf1fe4190f89443314e95a515fe24'
+let BondingManagerV1 = '0x81eb0b10ff8703905904e4d91cf6aa575d59736f'
+let BondingManagerV2 = '0x5a9512826eaaf1fe4190f89443314e95a515fe24'
 
 // Handler for TranscoderUpdate events
 export function transcoderUpdated(event: TranscoderUpdate): void {
@@ -135,7 +136,7 @@ export function bond(event: Bond): void {
     delegator = new Delegator(delegatorAddress.toHex())
   }
 
-  // Create delegate if it does not yet exist
+  // Create Transcoder if it does not yet exist
   let newDelegate = Transcoder.load(newDelegateAddress.toHex())
   if (newDelegate == null) {
     newDelegate = new Transcoder(newDelegateAddress.toHex())
@@ -294,8 +295,6 @@ export function reward(event: RewardEvent): void {
   let delegatorAddress: Address
   let pendingStakeAsOfNow: BigInt
   let pendingStakeAsOfLastRound: BigInt
-  let pendingFeesAsOfNow: BigInt
-  let pendingFeesAsOfLastRound: BigInt
   let delegator: Delegator
   let share: Share
   let delegatorData: BondingManager__getDelegatorResult
@@ -325,16 +324,18 @@ export function reward(event: RewardEvent): void {
     // Get total rounds sincer delegators last claim
     roundsSinceLastClaim = currentRound.toI32() - lastClaimRound.toI32()
 
-    // Create a new "Share" entry for delegator
-    share = new Share(delegatorAddress.toHex() + '-' + currentRound.toString())
-
-    // Calculate delegators reward tokens and fees for this round
+    // Create Share if it does not yet exist
+    share = Share.load(
+      delegatorAddress.toHex() + '-' + currentRound.toString()
+    ) as Share
+    if (share == null) {
+      share = new Share(
+        delegatorAddress.toHex() + '-' + currentRound.toString()
+      )
+    }
+    // Calculate delegators reward tokens for this round
     if (roundsSinceLastClaim > 1) {
       pendingStakeAsOfNow = bondingManager.pendingStake(
-        delegatorAddress,
-        currentRound
-      )
-      pendingFeesAsOfNow = bondingManager.pendingFees(
         delegatorAddress,
         currentRound
       )
@@ -342,12 +343,7 @@ export function reward(event: RewardEvent): void {
         delegatorAddress,
         currentRound.minus(BigInt.fromI32(1))
       )
-      pendingFeesAsOfLastRound = bondingManager.pendingFees(
-        delegatorAddress,
-        currentRound.minus(BigInt.fromI32(1))
-      )
       share.rewardTokens = pendingStakeAsOfNow.minus(pendingStakeAsOfLastRound)
-      share.fees = pendingFeesAsOfNow.minus(pendingFeesAsOfLastRound)
     }
 
     if (roundsSinceLastClaim == 1) {
@@ -355,12 +351,7 @@ export function reward(event: RewardEvent): void {
         delegatorAddress,
         currentRound
       )
-      pendingFeesAsOfNow = bondingManager.pendingFees(
-        delegatorAddress,
-        currentRound
-      )
       share.rewardTokens = pendingStakeAsOfNow.minus(delegatorData.value0)
-      share.fees = pendingFeesAsOfNow.minus(delegatorData.value1)
     }
 
     share.round = currentRound.toString()
@@ -368,7 +359,6 @@ export function reward(event: RewardEvent): void {
     share.save()
 
     delegator.pendingStake = pendingStakeAsOfNow
-    delegator.pendingFees = pendingFeesAsOfNow
     delegator.save()
   }
 

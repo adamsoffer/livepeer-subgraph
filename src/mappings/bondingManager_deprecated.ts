@@ -21,7 +21,7 @@ export function bond_deprecated(event: Bond_deprecated): void {
   let startRound = delegatorData.value4
   let bondedAmount = delegatorData.value0
 
-  // Create delegate if it does not yet exist
+  // Create transcoder if it does not yet exist
   let delegate = Transcoder.load(delegateAddress.toHex())
   if (delegate == null) {
     delegate = new Transcoder(delegateAddress.toHex())

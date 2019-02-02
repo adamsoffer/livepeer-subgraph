@@ -8,13 +8,15 @@ import { BondingManager } from '../types/BondingManager/BondingManager'
 // Import entity types generated from the GraphQL schema
 import { Transcoder, Reward, Round } from '../types/schema'
 
+// Bind BondingManager contract
+let bondingManager = BondingManager.bind(
+  Address.fromString('511bc4556d823ae99630ae8de28b9b80df90ea2e')
+)
+
 // Handler for NewRound events
 export function newRound(event: NewRound): void {
   let roundsManager = RoundsManager.bind(event.address)
   let roundNumber = event.params.round
-  let bondingManager = BondingManager.bind(
-    Address.fromString('511bc4556d823ae99630ae8de28b9b80df90ea2e')
-  )
   let EMPTY_ADDRESS = Address.fromString(
     '0000000000000000000000000000000000000000'
   )
@@ -23,7 +25,7 @@ export function newRound(event: NewRound): void {
   let active: boolean
   let rewardId: string
   let reward: Reward
-
+  let round: Round
   // Iterate over all registered transcoders
   while (EMPTY_ADDRESS.toHex() != currentTranscoder.toHex()) {
     // Update transcoder active state
@@ -54,7 +56,7 @@ export function newRound(event: NewRound): void {
   }
 
   // Create new round
-  let round = new Round(roundNumber.toString())
+  round = new Round(roundNumber.toString())
   round.initialized = true
   round.timestamp = event.block.timestamp
   round.lastInitializedRound = roundsManager.lastInitializedRound()

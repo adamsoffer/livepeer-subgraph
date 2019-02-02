@@ -17,9 +17,7 @@ dataSources:
       file: ./src/mappings/bondingManager_deprecated.ts
       entities:
         - Transcoder
-        - Reward
         - Delegator
-        - Share
       abis:
         - name: BondingManager
           file: ./abis/BondingManager_deprecated.json
@@ -83,7 +81,6 @@ dataSources:
         - Transcoder
         - Reward
         - Round
-        - Delegator
       abis:
         - name: RoundsManager
           file: ./abis/RoundsManager.json
@@ -92,3 +89,30 @@ dataSources:
       eventHandlers:
         - event: NewRound(uint256)
           handler: newRound
+  - kind: ethereum/contract
+    name: JobsManager
+    network: mainnet
+    source:
+      address: 'bf07ff45f14c9ff0571b9fbdc7e2b62d29931224'
+      abi: JobsManager
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.1
+      language: wasm/assemblyscript
+      file: ./src/mappings/jobsManager.ts
+      entities:
+        - Transcoder
+        - Share
+        - Delegator
+      abis:
+        - name: JobsManager
+          file: ./abis/JobsManager.json
+        - name: BondingManager
+          file: ./abis/BondingManager.json
+        - name: RoundsManager
+          file: ./abis/RoundsManager.json
+        - name: Controller
+          file: ./abis/Controller.json
+      eventHandlers:
+        - event: DistributeFees(address,uint256,uint256,uint256)
+          handler: distributeFees
