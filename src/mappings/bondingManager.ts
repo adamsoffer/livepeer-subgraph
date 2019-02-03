@@ -201,22 +201,20 @@ export function unbond(event: Unbond): void {
   let delegateAddress = event.params.delegate
   let delegatorAddress = event.params.delegator
   let amount = event.params.amount
-
-  // Get delegator data
   let delegatorData = bondingManager.getDelegator(delegatorAddress)
   let startRound = delegatorData.value4
+  let delegator = Delegator.load(delegatorAddress.toHex())
+  let totalStake = bondingManager.transcoderTotalStake(delegateAddress)
 
   let delegate = Transcoder.load(delegateAddress.toHex())
   if (delegate == null) {
     delegate = new Transcoder(delegateAddress.toHex())
   }
-  let delegator = Delegator.load(delegatorAddress.toHex())
-  let totalStake = bondingManager.transcoderTotalStake(delegateAddress)
 
-  // Update transcoder
+  // Update transcoder's total stake
   delegate.totalStake = totalStake
 
-  // Update delegator
+  // Update delegator's bonded amount
   delegator.bondedAmount = delegator.bondedAmount.minus(amount)
 
   // Delegator no longer delegated to anyone if it does not have a bonded amount
@@ -279,6 +277,7 @@ export function reward(event: RewardEvent): void {
   let transcoder = Transcoder.load(transcoderAddress.toHex())
   let totalStake = bondingManager.transcoderTotalStake(transcoderAddress)
   let currentRound = roundsManager.currentRound()
+
   // Recreate unique id from transcoder address and round
   // We use this to keep track of a transcoder's rewards for each round
   let rewardId = transcoderAddress.toHex() + '-' + currentRound.toString()
@@ -333,6 +332,7 @@ export function reward(event: RewardEvent): void {
         delegatorAddress.toHex() + '-' + currentRound.toString()
       )
     }
+
     // Calculate delegators reward tokens for this round
     if (roundsSinceLastClaim > 1) {
       pendingStakeAsOfNow = bondingManager.pendingStake(

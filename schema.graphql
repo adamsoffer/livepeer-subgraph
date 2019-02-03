@@ -38,6 +38,7 @@ type Round @entity {
   lastInitializedRound: BigInt
   startBlock: BigInt
   rewards: [Reward!] @derivedFrom(field: "round")
+  shares: [Share!] @derivedFrom(field: "round")
   delegatorShares: [Share!] @derivedFrom(field: "round")
 }
 

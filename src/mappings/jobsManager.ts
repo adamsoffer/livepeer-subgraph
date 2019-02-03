@@ -36,7 +36,6 @@ export function distributeFees(event: DistributeFees): void {
   let transcoderAddress = event.params.transcoder
   let transcoder = Transcoder.load(transcoderAddress.toHex())
   let currentRound = roundsManager.currentRound()
-
   let delegatorAddress: Address
   let pendingFeesAsOfNow: BigInt
   let pendingFeesAsOfLastRound: BigInt
