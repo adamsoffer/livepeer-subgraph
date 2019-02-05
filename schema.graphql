@@ -43,12 +43,8 @@ type Round @entity {
 
 type Delegator @entity {
   id: ID!
-  bondedAmount: BigInt
-  fees: BigInt
   delegate: Transcoder
   startRound: Round
-  pendingFees: BigInt
-  pendingStake: BigInt
   shares: [Share!] @derivedFrom(field: "delegator")
 }
 

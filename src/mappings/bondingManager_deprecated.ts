@@ -19,7 +19,6 @@ export function bond_deprecated(event: Bond_deprecated): void {
   // Get delegator data
   let delegatorData = bondingManager.getDelegator(delegatorAddress)
   let startRound = delegatorData.value4
-  let bondedAmount = delegatorData.value0
 
   // Create transcoder if it does not yet exist
   let delegate = Transcoder.load(delegateAddress.toHex())
@@ -44,9 +43,6 @@ export function bond_deprecated(event: Bond_deprecated): void {
     delegate.delegators = delegators
   }
   delegator.delegate = delegateAddress.toHex()
-
-  // Update delegator bonded amount
-  delegator.bondedAmount = bondedAmount
 
   // Update delegator's start round
   delegator.startRound = startRound.toString()
@@ -75,13 +71,9 @@ export function unbond_deprecated(event: Unbond_deprecated): void {
   // Get delegator data
   let delegatorData = bondingManager.getDelegator(delegatorAddress)
   let startRound = delegatorData.value4
-  let bondedAmount = delegatorData.value0
 
   // Update delegate's total stake
   delegate.totalStake = totalStake
-
-  // Update delegator's bonded amount
-  delegator.bondedAmount = bondedAmount
 
   // Remove delegator from delegate
   let delegators = delegate.delegators

@@ -90,6 +90,9 @@ export function distributeFees(event: DistributeFees): void {
         currentRound.minus(BigInt.fromI32(1))
       )
       share.fees = pendingFeesAsOfNow.minus(pendingFeesAsOfLastRound)
+      share.round = currentRound.toString()
+      share.delegator = delegatorAddress.toHex()
+      share.save()
     }
 
     if (roundsSinceLastClaim == 1) {
@@ -98,16 +101,10 @@ export function distributeFees(event: DistributeFees): void {
         currentRound
       )
       share.fees = pendingFeesAsOfNow.minus(delegatorData.value1)
+      share.round = currentRound.toString()
+      share.delegator = delegatorAddress.toHex()
+      share.save()
     }
-
-    share.round = currentRound.toString()
-    share.delegator = delegatorAddress.toHex()
-
-    delegator.pendingFees = pendingFeesAsOfNow
-
-    // Apply store updates
-    share.save()
-    delegator.save()
   }
 
   // Update transcoder's accrued fees

@@ -123,7 +123,6 @@ export function bond(event: Bond): void {
   let bondingManager = BondingManager.bind(event.address)
   let newDelegateAddress = event.params.newDelegate
   let oldDelegateAddress = event.params.oldDelegate
-  let bondedAmount = event.params.bondedAmount
   let delegatorAddress = event.params.delegator
 
   // Get delegator data
@@ -184,9 +183,6 @@ export function bond(event: Bond): void {
   )
   newDelegate.totalStake = newDelegateTotalStake
 
-  // Update delegator's bonded amount
-  delegator.bondedAmount = bondedAmount
-
   // Update delegator's start round
   delegator.startRound = startRound.toString()
 
@@ -200,7 +196,6 @@ export function unbond(event: Unbond): void {
   let bondingManager = BondingManager.bind(event.address)
   let delegateAddress = event.params.delegate
   let delegatorAddress = event.params.delegator
-  let amount = event.params.amount
   let delegatorData = bondingManager.getDelegator(delegatorAddress)
   let startRound = delegatorData.value4
   let delegator = Delegator.load(delegatorAddress.toHex())
@@ -214,12 +209,9 @@ export function unbond(event: Unbond): void {
   // Update transcoder's total stake
   delegate.totalStake = totalStake
 
-  // Update delegator's bonded amount
-  delegator.bondedAmount = delegator.bondedAmount.minus(amount)
-
   // Delegator no longer delegated to anyone if it does not have a bonded amount
   // so remove it from delegate
-  if (!delegator.bondedAmount) {
+  if (!delegatorData.value0) {
     let delegators = delegate.delegators
     if (delegators != null) {
       let i = delegators.indexOf(delegatorAddress.toHex())
@@ -244,7 +236,6 @@ export function rebond(event: Rebond): void {
   let bondingManager = BondingManager.bind(event.address)
   let delegateAddress = event.params.delegate
   let delegatorAddress = event.params.delegator
-  let amount = event.params.amount
   let delegator = Delegator.load(delegatorAddress.toHex())
   let delegate = Transcoder.load(delegateAddress.toHex())
   let totalStake = bondingManager.transcoderTotalStake(delegateAddress)
@@ -252,9 +243,6 @@ export function rebond(event: Rebond): void {
   // Get delegator data
   let delegatorData = bondingManager.getDelegator(delegatorAddress)
   let startRound = delegatorData.value4
-
-  // Update delegator's bonded amount
-  delegator.bondedAmount = delegator.bondedAmount.plus(amount)
 
   // Update delegator's delegate
   delegator.delegate = delegateAddress.toHex()
@@ -357,9 +345,6 @@ export function reward(event: RewardEvent): void {
     share.round = currentRound.toString()
     share.delegator = delegatorAddress.toHex()
     share.save()
-
-    delegator.pendingStake = pendingStakeAsOfNow
-    delegator.save()
   }
 
   // Apply store updates
