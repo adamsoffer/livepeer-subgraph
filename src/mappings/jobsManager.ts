@@ -79,31 +79,27 @@ export function distributeFees(event: DistributeFees): void {
       )
     }
 
-    // Calculate delegator's fees for this round
-    if (roundsSinceLastClaim > 1) {
+    // Calculate delegator's fee share for this round
+    if (roundsSinceLastClaim > 0) {
       pendingFeesAsOfNow = bondingManager.pendingFees(
         delegatorAddress,
         currentRound
       )
-      pendingFeesAsOfLastRound = bondingManager.pendingFees(
-        delegatorAddress,
-        currentRound.minus(BigInt.fromI32(1))
-      )
-      share.fees = pendingFeesAsOfNow.minus(pendingFeesAsOfLastRound)
+      if (roundsSinceLastClaim > 1) {
+        pendingFeesAsOfLastRound = bondingManager.pendingFees(
+          delegatorAddress,
+          currentRound.minus(BigInt.fromI32(1))
+        )
+        share.fees = pendingFeesAsOfNow.minus(pendingFeesAsOfLastRound)
+      } else {
+        share.fees = pendingFeesAsOfNow.minus(delegatorData.value1)
+      }
       share.round = currentRound.toString()
       share.delegator = delegatorAddress.toHex()
       share.save()
-    }
 
-    if (roundsSinceLastClaim == 1) {
-      pendingFeesAsOfNow = bondingManager.pendingFees(
-        delegatorAddress,
-        currentRound
-      )
-      share.fees = pendingFeesAsOfNow.minus(delegatorData.value1)
-      share.round = currentRound.toString()
-      share.delegator = delegatorAddress.toHex()
-      share.save()
+      delegator.accruedFees = delegator.accruedFees.plus(share.fees as BigInt)
+      delegator.save()
     }
   }
 

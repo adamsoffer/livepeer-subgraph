@@ -45,6 +45,7 @@ type Delegator @entity {
   id: ID!
   delegate: Transcoder
   startRound: Round
+  accruedFees: BigInt
   shares: [Share!] @derivedFrom(field: "delegator")
 }
 
