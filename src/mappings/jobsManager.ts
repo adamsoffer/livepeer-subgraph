@@ -43,7 +43,7 @@ export function distributeFees(event: DistributeFees): void {
   let share: Share
   let delegatorData: BondingManager__getDelegatorResult
   let delegators: Array<string> = transcoder.delegators as Array<string>
-  let roundsSinceLastClaim: number
+  let roundsSinceLastClaim: BigInt
   let lastClaimRound: BigInt
   let targetContract: string
   let isDeprecated: boolean
@@ -67,7 +67,7 @@ export function distributeFees(event: DistributeFees): void {
     lastClaimRound = isDeprecated ? delegatorData.value6 : delegatorData.value5
 
     // Get total rounds sincer delegators last claim
-    roundsSinceLastClaim = currentRound.toI32() - lastClaimRound.toI32()
+    roundsSinceLastClaim = currentRound.minus(lastClaimRound)
 
     // Create Share if it does not yet exist
     share = Share.load(
@@ -80,12 +80,12 @@ export function distributeFees(event: DistributeFees): void {
     }
 
     // Calculate delegator's fee share for this round
-    if (roundsSinceLastClaim > 0) {
+    if (roundsSinceLastClaim.toI32() > 0) {
       pendingFeesAsOfNow = bondingManager.pendingFees(
         delegatorAddress,
         currentRound
       )
-      if (roundsSinceLastClaim > 1) {
+      if (roundsSinceLastClaim.toI32() > 1) {
         pendingFeesAsOfLastRound = bondingManager.pendingFees(
           delegatorAddress,
           currentRound.minus(BigInt.fromI32(1))
@@ -97,8 +97,6 @@ export function distributeFees(event: DistributeFees): void {
       share.round = currentRound.toString()
       share.delegator = delegatorAddress.toHex()
       share.save()
-
-      delegator.accruedFees = delegator.accruedFees.plus(share.fees as BigInt)
       delegator.save()
     }
   }
